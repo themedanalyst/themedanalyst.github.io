@@ -253,6 +253,7 @@ nav.scrolled .ham span{background:var(--navy);}
   color:var(--rosegold);
   margin-bottom:28px;
   letter-spacing:-.02em;
+   min-height:2.3em;
 }
 .hero-desc{
   font-size:17px;font-weight:300;
@@ -419,7 +420,7 @@ nav.scrolled .ham span{background:var(--navy);}
   box-shadow:0 24px 60px rgba(0,0,0,.12);
   position:relative;
 }
-.about-img img{width:100%;display:block;aspect-ratio:4/5;object-fit:cover;object-position:center top;}
+.about-img img{width:100%;display:block;min-height:300px;object-fit:cover;object-position:center top;}
 .about-img-accent{
   position:absolute;
   width:180px;height:180px;
@@ -1121,7 +1122,6 @@ footer{
           <li>Negative-margin subcategories flagged for review</li>
         </ul>
         <div class="pc-tools"><span class="tool">Power BI</span><span class="tool">DAX</span><span class="tool">Retail</span><span class="tool">Profitability Analysis</span></div>
-        <div class="pc-links"><a class="plink soon">GitHub coming soon</a></div>
       </div>
     </div>
 
@@ -1159,8 +1159,7 @@ footer{
           <li>Row-level security and What-If parameters for scenario analysis</li>
         </ul>
         <div class="pc-tools"><span class="tool">Power BI</span><span class="tool">DAX</span><span class="tool">Healthcare</span><span class="tool">Risk Scoring</span><span class="tool">RLS</span></div>
-        <div class="pc-links"><a class="plink soon">GitHub coming soon</a></div>
-      </div>
+       </div>
     </div>
 
     <div class="pc reveal reveal-delay-2" data-c="sql powerbi">
@@ -1178,8 +1177,7 @@ footer{
           <li>Fraud alert correlation analysis and subscription churn segmentation</li>
         </ul>
         <div class="pc-tools"><span class="tool">SQL</span><span class="tool">PostgreSQL</span><span class="tool">Power BI</span><span class="tool">DAX</span><span class="tool">Telecom</span></div>
-        <div class="pc-links"><a class="plink soon">GitHub coming soon</a></div>
-      </div>
+        </div>
     </div>
 
   </div>
@@ -1267,7 +1265,7 @@ footer{
 
 <!-- Footer -->
 <footer>
-  <span class="foot-copy">2025 Usungobong D. Udofia</span>
+  <span class="foot-copy">2026 Usungobong D. Udofia</span>
   <div class="foot-links">
     <a href="https://linkedin.com/in/usungobongudofia" target="_blank">LinkedIn</a>
     <a href="https://github.com/themedanalyst" target="_blank">GitHub</a>
@@ -1340,13 +1338,13 @@ const dotEls = document.querySelectorAll('.dot');
 let st;
 function goSlide(n) {
   slides[sc].classList.remove('active'); dotEls[sc].classList.remove('dotact');
-  sc=(n+slides.length)%slides.length;
+  sc=(n%slides.length+slides.length)%slides.length;   /* ← fix negative wrap */
   slides[sc].classList.add('active'); dotEls[sc].classList.add('dotact');
 }
 function nextSlide() { goSlide(sc+1); }
 function prevSlide() { goSlide(sc-1); }
-function startSS() { st = setInterval(nextSlide, 3400); }
-function stopSS() { clearInterval(st); }
+function startSS() { clearInterval(st); st = setInterval(nextSlide, 3400); }  /* ← clearInterval first */
+function stopSS()  { clearInterval(st); }
 startSS();
 document.querySelector('.slideshow').addEventListener('mouseenter', stopSS);
 document.querySelector('.slideshow').addEventListener('mouseleave', startSS);
